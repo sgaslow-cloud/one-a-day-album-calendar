@@ -8,26 +8,40 @@
 </head>
 <body>
 <header class="topbar">
-  <div>
+  <div class="brand">
     <p class="eyebrow">MUSIC • EVERY DAY</p>
-    <h1>One A Day Album Calendar</h1>
-    <p class="subtitle">One album. One day. A running record of what we listened to.</p>
+    <h1>One A Day</h1>
+    <p class="subtitle">One album. One day.</p>
   </div>
-  <div class="month-controls">
-    <button id="prevMonth" aria-label="Previous month">‹</button>
-    <strong id="monthLabel"></strong>
-    <button id="nextMonth" aria-label="Next month">›</button>
-  </div>
+  <button id="calendarButton" class="calendar-button" aria-label="Open calendar" title="Choose a date">▦ <span>Calendar</span></button>
 </header>
-<main class="layout">
-  <section class="calendar-card">
-    <div class="calendar-head">
-      <div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+
+<main>
+  <section id="todayView" class="today-view">
+    <div id="detail"></div>
+  </section>
+</main>
+
+<div id="calendarModal" class="modal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <section class="calendar-panel" role="dialog" aria-modal="true" aria-label="Choose a date">
+    <div class="calendar-panel-head">
+      <div>
+        <p class="eyebrow">CHOOSE A DAY</p>
+        <h2 id="monthLabel"></h2>
+      </div>
+      <button id="closeCalendar" class="close-button" aria-label="Close calendar">×</button>
     </div>
+    <div class="calendar-nav">
+      <button id="prevMonth" aria-label="Previous month">‹</button>
+      <button id="todayButton">Today</button>
+      <button id="nextMonth" aria-label="Next month">›</button>
+    </div>
+    <div class="weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
     <div id="calendar" class="calendar"></div>
   </section>
-  <aside class="detail-card" id="detail"></aside>
-</main>
+</div>
+
 <footer>One A Day Album Calendar</footer>
 <script src="script.js"></script>
 </body>
