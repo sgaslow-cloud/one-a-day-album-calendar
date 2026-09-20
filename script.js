@@ -1,9 +1,9 @@
 const albums={
-"2026-09-13":{title:"Harry Styles",artist:"Harry Styles",genre:"Pop",rating:"7.3",track:"Sign of the Times",release:"May 12, 2017",tracks:"10",length:"40 min",recommended:"—",query:"Harry Styles Harry Styles"},
-"2026-09-14":{title:"NEVER ENOUGH",artist:"Daniel Caesar",genre:"Contemporary R&B",rating:"8.3",track:"Always",release:"April 7, 2023",tracks:"15",length:"54 min",recommended:"—",query:"Daniel Caesar NEVER ENOUGH"},
-"2026-09-15":{title:"Blonde",artist:"Frank Ocean",genre:"Alternative R&B",rating:"7.7",track:"Godspeed",release:"August 20, 2016",tracks:"17",length:"51 min",recommended:"Ryan Gigs",query:"Frank Ocean Blonde"},
-"2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",query:"Steve Lacy Oh yeah?"},
-"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",query:"keshi Requiem"}
+"2026-09-13":{title:"Harry Styles",artist:"Harry Styles",genre:"Pop",rating:"7.3",track:"Sign of the Times",release:"May 12, 2017",tracks:"10",length:"40 min",recommended:"—",cover:"https://www.officialcharts.com/sites/default/files/styles/content_column_mobile/public/legacy_images/media/652652/harry-styles-album-artwork.jpg?itok=VTBt75Md"},
+"2026-09-14":{title:"NEVER ENOUGH",artist:"Daniel Caesar",genre:"Contemporary R&B",rating:"8.3",track:"Always",release:"April 7, 2023",tracks:"15",length:"54 min",recommended:"—",cover:"https://i.ebayimg.com/images/g/DdMAAeSwzzdotIHl/s-l1200.jpg"},
+"2026-09-15":{title:"Blonde",artist:"Frank Ocean",genre:"Alternative R&B",rating:"7.7",track:"Godspeed",release:"August 20, 2016",tracks:"17",length:"51 min",recommended:"Ryan Gigs",cover:"https://i.pinimg.com/originals/fc/5b/ff/fc5bffebeb977cbd99d49afb97e7fd0f.jpg"},
+"2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",cover:"https://lunchboxrecords.com/cdn/shop/files/SteveLacyOhyeah_LP_580x%402x.jpg?v=1781006823"},
+"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",cover:"https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/a3/20/a6a32054-f43f-12b3-4019-1f201b6c56b2/24UMGIM70300.rgb.jpg/1200x630bb.jpg"}
 };
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -12,20 +12,9 @@ let selected=todayKey();
 let view=new Date(new Date().getFullYear(),new Date().getMonth(),1);
 let imageCache={};
 
-async function getCover(a){
- if(!a)return null;
- if(imageCache[a.query])return imageCache[a.query];
- try{
-  const r=await fetch("https://itunes.apple.com/search?term="+encodeURIComponent(a.query)+"&entity=album&limit=10");
-  const data=await r.json();
-  const hit=data.results.find(x=>x.collectionName&&x.collectionName.toLowerCase()===a.title.toLowerCase())||data.results.find(x=>x.collectionName);
-  const url=hit?.artworkUrl100?.replace("100x100","1000x1000")||null;
-  imageCache[a.query]=url;
-  return url;
- }catch(e){return null}
-}
-function openCalendar(){document.getElementById("calendarModal").classList.add("open");document.getElementById("calendarModal").setAttribute("aria-hidden","false");renderCalendar()}
-function closeCalendar(){document.getElementById("calendarModal").classList.remove("open");document.getElementById("calendarModal").setAttribute("aria-hidden","true")}
+function getCover(a){return a?.cover||null}
+function openCalendar(){document.getElementById("calendarModal").hidden=false;document.getElementById("calendarModal").classList.add("open");document.getElementById("calendarModal").setAttribute("aria-hidden","false");renderCalendar()}
+function closeCalendar(){document.getElementById("calendarModal").classList.remove("open");document.getElementById("calendarModal").hidden=true;document.getElementById("calendarModal").setAttribute("aria-hidden","true")}
 function renderCalendar(){
  document.getElementById("monthLabel").textContent=view.toLocaleString("en-US",{month:"long",year:"numeric"});
  const cal=document.getElementById("calendar");cal.innerHTML="";
