@@ -3,7 +3,8 @@ const albums={
 "2026-09-14":{title:"NEVER ENOUGH",artist:"Daniel Caesar",genre:"Contemporary R&B",rating:"8.3",track:"Always",release:"April 7, 2023",tracks:"15",length:"54 min",recommended:"—",cover:"https://i.ebayimg.com/images/g/DdMAAeSwzzdotIHl/s-l1200.jpg"},
 "2026-09-15":{title:"Blonde",artist:"Frank Ocean",genre:"Alternative R&B",rating:"7.7",track:"Godspeed",release:"August 20, 2016",tracks:"17",length:"51 min",recommended:"Ryan Gigs",cover:"https://i.pinimg.com/originals/fc/5b/ff/fc5bffebeb977cbd99d49afb97e7fd0f.jpg"},
 "2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",cover:"https://lunchboxrecords.com/cdn/shop/files/SteveLacyOhyeah_LP_580x%402x.jpg?v=1781006823"},
-"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",cover:"https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/a3/20/a6a32054-f43f-12b3-4019-1f201b6c56b2/24UMGIM70300.rgb.jpg/1200x630bb.jpg"}
+"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",cover:"https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/a3/20/a6a32054-f43f-12b3-4019-1f201b6c56b2/24UMGIM70300.rgb.jpg/1200x630bb.jpg"},
+"2026-09-18":{title:"August and Everything After",artist:"Counting Crows",genre:"Alt Rock",rating:"8.2",track:"Round Here",release:"September 14, 1993",tracks:"11",length:"51 min",recommended:"Dad",cover:"https://upload.wikimedia.org/wikipedia/en/4/4f/Counting_Crows_-_August_and_Everything_After.jpg"}
 };
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
