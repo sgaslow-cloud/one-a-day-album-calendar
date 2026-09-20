@@ -1,26 +1,58 @@
 const albums={
-"2026-09-13":{title:"Harry Styles",artist:"Harry Styles",genre:"Pop",rating:"7.3",track:"Sign of the Times",release:"May 12, 2017",tracks:"10",length:"40 min",recommended:"—",mark:"HS"},
-"2026-09-14":{title:"NEVER ENOUGH",artist:"Daniel Caesar",genre:"Contemporary R&B",rating:"8.3",track:"Always",release:"April 7, 2023",tracks:"15",length:"52 min",recommended:"—",mark:"NE"},
-"2026-09-15":{title:"Blonde",artist:"Frank Ocean",genre:"Alternative R&B",rating:"7.7",track:"Godspeed",release:"August 20, 2016",tracks:"17",length:"51 min",recommended:"Ryan Gigs",mark:"BL"},
-"2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",mark:"OY"},
-"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",mark:"RQ"}
+"2026-09-13":{title:"Harry Styles",artist:"Harry Styles",genre:"Pop",rating:"7.3",track:"Sign of the Times",release:"May 12, 2017",tracks:"10",length:"40 min",recommended:"—",query:"Harry Styles Harry Styles"},
+"2026-09-14":{title:"NEVER ENOUGH",artist:"Daniel Caesar",genre:"Contemporary R&B",rating:"8.3",track:"Always",release:"April 7, 2023",tracks:"15",length:"54 min",recommended:"—",query:"Daniel Caesar NEVER ENOUGH"},
+"2026-09-15":{title:"Blonde",artist:"Frank Ocean",genre:"Alternative R&B",rating:"7.7",track:"Godspeed",release:"August 20, 2016",tracks:"17",length:"51 min",recommended:"Ryan Gigs",query:"Frank Ocean Blonde"},
+"2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",query:"Steve Lacy Oh yeah?"},
+"2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",query:"keshi Requiem"}
 };
-let view=new Date(2026,8,1),selected="2026-09-13";
-const pad=n=>String(n).padStart(2,"0"),key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-function render(){
+const pad=n=>String(n).padStart(2,"0");
+const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const todayKey=()=>key(new Date());
+let selected=todayKey();
+let view=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+let imageCache={};
+
+async function getCover(a){
+ if(!a)return null;
+ if(imageCache[a.query])return imageCache[a.query];
+ try{
+  const r=await fetch("https://itunes.apple.com/search?term="+encodeURIComponent(a.query)+"&entity=album&limit=10");
+  const data=await r.json();
+  const hit=data.results.find(x=>x.collectionName&&x.collectionName.toLowerCase()===a.title.toLowerCase())||data.results.find(x=>x.collectionName);
+  const url=hit?.artworkUrl100?.replace("100x100","1000x1000")||null;
+  imageCache[a.query]=url;
+  return url;
+ }catch(e){return null}
+}
+function openCalendar(){document.getElementById("calendarModal").classList.add("open");document.getElementById("calendarModal").setAttribute("aria-hidden","false");renderCalendar()}
+function closeCalendar(){document.getElementById("calendarModal").classList.remove("open");document.getElementById("calendarModal").setAttribute("aria-hidden","true")}
+function renderCalendar(){
  document.getElementById("monthLabel").textContent=view.toLocaleString("en-US",{month:"long",year:"numeric"});
  const cal=document.getElementById("calendar");cal.innerHTML="";
  const first=new Date(view.getFullYear(),view.getMonth(),1),start=new Date(first);start.setDate(1-first.getDay());
- for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=key(d),a=albums[k],el=document.createElement("button");
- el.className="day"+(d.getMonth()!==view.getMonth()?" other":"")+(a?" album":"")+(k===selected?" selected":"");
- el.innerHTML=`<div class="date-num">${d.getDate()}</div>${a?`<div class="album-mini"><strong>${a.title}</strong><span>${a.artist}</span></div>`:""}`;
- el.addEventListener("click",()=>{selected=k;render();show(k)});cal.appendChild(el)}
+ for(let i=0;i<42;i++){
+  const d=new Date(start);d.setDate(start.getDate()+i);const k=key(d),a=albums[k],el=document.createElement("button");
+  el.className="day"+(d.getMonth()!==view.getMonth()?" other":"")+(a?" has-album":"")+(k===selected?" selected":"");
+  el.innerHTML=`<div class="date-num">${d.getDate()}</div>${a?`<div class="album-mini"><strong>${a.title}</strong><span>${a.artist}</span></div>`:""}`;
+  el.addEventListener("click",()=>{selected=k;renderToday();closeCalendar()});
+  cal.appendChild(el);
+ }
 }
-function show(k){
- const a=albums[k],box=document.getElementById("detail");
- if(!a){box.innerHTML='<div class="detail-empty">No album is recorded for this day yet.</div>';return}
- const d=new Date(k+"T12:00:00");
- box.innerHTML=`<div class="detail"><div class="detail-date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div><div class="art">${a.mark}</div><h2>${a.title}</h2><div class="artist">${a.artist}</div><div class="meta"><div><label>Genre</label><div>${a.genre}</div></div><div><label>Rating</label><div>${a.rating}/10</div></div><div><label>Best track</label><div>${a.track}</div></div><div><label>Released</label><div>${a.release}</div></div><div><label>Tracks</label><div>${a.tracks}</div></div><div><label>Length</label><div>${a.length}</div></div></div><div class="recommend">Recommended by: <strong>${a.recommended}</strong></div></div>`}
-document.getElementById("prevMonth").onclick=()=>{view.setMonth(view.getMonth()-1);render();show(selected)};
-document.getElementById("nextMonth").onclick=()=>{view.setMonth(view.getMonth()+1);render();show(selected)};
-render();show(selected);
+async function renderToday(){
+ const box=document.getElementById("detail"),a=albums[selected],d=new Date(selected+"T12:00:00"),isToday=selected===todayKey();
+ if(!a){box.innerHTML=`<div class="empty"><div class="big">♫</div><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>No album yet</h2><p>This day is ready for its one-a-day album.</p></div>`;return}
+ box.innerHTML=`<div class="detail"><div class="cover-wrap"><div class="cover-fallback" id="coverFallback">${a.artist.slice(0,2).toUpperCase()}</div></div><div class="info"><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>${a.title}</h2><div class="artist">${a.artist}</div><div class="rating">★ <b>${a.rating}</b> / 10</div><div class="meta"><div><label>Genre</label><div>${a.genre}</div></div><div><label>Best track</label><div>${a.track}</div></div><div><label>Released</label><div>${a.release}</div></div><div><label>Tracks</label><div>${a.tracks}</div></div><div><label>Length</label><div>${a.length}</div></div></div><div class="recommend">Recommended by: <strong>${a.recommended}</strong></div></div></div>`;
+ const url=await getCover(a);
+ if(url){
+  const wrap=document.querySelector(".cover-wrap");
+  if(wrap){const img=document.createElement("img");img.className="cover";img.alt=`${a.title} by ${a.artist} album cover`;img.src=url;img.onerror=()=>img.remove();wrap.replaceChildren(img)}
+ }
+}
+document.getElementById("calendarButton").onclick=openCalendar;
+document.getElementById("closeCalendar").onclick=closeCalendar;
+document.getElementById("modalBackdrop").onclick=closeCalendar;
+document.getElementById("prevMonth").onclick=()=>{view.setMonth(view.getMonth()-1);renderCalendar()};
+document.getElementById("nextMonth").onclick=()=>{view.setMonth(view.getMonth()+1);renderCalendar()};
+document.getElementById("todayButton").onclick=()=>{selected=todayKey();view=new Date(new Date().getFullYear(),new Date().getMonth(),1);renderToday();closeCalendar()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCalendar()});
+renderToday();
