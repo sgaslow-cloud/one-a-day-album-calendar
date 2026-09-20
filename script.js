@@ -5,6 +5,7 @@ const albums={
 "2026-09-16":{title:"Oh yeah?",artist:"Steve Lacy",genre:"Alternative",rating:"7.6",track:"Doom",release:"2025",tracks:"—",length:"—",recommended:"—",singles:["Nice Shoes"],cover:"https://lunchboxrecords.com/cdn/shop/files/SteveLacyOhyeah_LP_580x%402x.jpg?v=1781006823"},
 "2026-09-17":{title:"Requiem",artist:"keshi",genre:"Pop",rating:"8.3",track:"Say",release:"February 7, 2025",tracks:"13",length:"43 min",recommended:"Mia Wei",singles:["Soft Spot","Dream","Say","Texas"],cover:"https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a6/a3/20/a6a32054-f43f-12b3-4019-1f201b6c56b2/24UMGIM70300.rgb.jpg/1200x630bb.jpg"},
 "2026-09-18":{title:"August and Everything After",artist:"Counting Crows",genre:"Alt Rock",rating:"8.2",track:"Round Here",release:"September 14, 1993",tracks:"11",length:"51 min",recommended:"Dad",singles:["Mr. Jones","Round Here","Omaha","Rain King","A Murder of One"],cover:"https://cdn.prod.website-files.com/5fda4244c42e015b06d2fd8d/5fda462b0dcfee387c3ccf87_august-and-everything-after_album.avif"}
+"2026-09-19":{title:"The Bends",artist:"Radiohead",genre:"Alt Rock",rating:"8.1",track:"Fake Plastic Trees",release:"March 13, 1995",tracks:"12",length:"48 min",recommended:"—",singles:["My Iron Lung","High and Dry","Fake Plastic Trees","Just","Street Spirit (Fade Out)"],cover:"https://upload.wikimedia.org/wikipedia/en/5/55/Radiohead.bends.albumart.jpg"},
 };
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
