@@ -28,14 +28,14 @@ Determine and verify:
 Prefer sources in this order: official artist/label; Spotify; MusicBrainz/Cover Art Archive; reputable music publications/databases; other reputable cross-checks.
 Watch for reissues vs. original releases, deluxe vs. standard editions, incorrect track counts, running times, and similarly named releases. If sources disagree, investigate rather than guess.
 
-### Ratings
-The site rating is an editorial value out of 10. If Dylan supplies it, use it exactly. If he asks the agent to choose a rating and no established project methodology exists, ask Dylan rather than inventing a number or silently substituting another publication's score.
+### Ratings — NEVER generate one
+The site rating is an editorial value out of 10. **The AI agent must never generate, estimate, infer, research-and-substitute, or otherwise choose a rating.** If Dylan supplies a rating, use it exactly. If Dylan does not supply one, leave the value as `—` (or ask Dylan if the site requires a value). Never substitute a reviewer's score or another publication's rating.
 
-### Best track
-If Dylan specifies the track, use his choice. Otherwise research and choose a defensible standout track. This is an editorial choice, not an objective fact.
+### Best track — NEVER generate one
+**The AI agent must never choose or generate the Best track.** If Dylan supplies a Best track, use it exactly. If he does not supply one, leave the value as `—` (or ask Dylan if he wants to provide one). Do not select a song based on popularity, critical consensus, streaming numbers, or personal judgment.
 
-### Recommendations
-Only use a person's name when Dylan has supplied or approved it. If none exists, use `recommended:"—"`. The site hides the recommendation label automatically when the value is `—`. Never invent or infer a recommendation.
+### Recommendations — NEVER generate one
+Only use a person's name when Dylan has explicitly supplied or approved it. If none exists, use `recommended:"—"`. The site hides the recommendation label automatically when the value is `—`. **Never invent, infer, research, or generate a recommendation.**
 
 ## Album data format
 Add one object to the existing `albums` object. Example:
@@ -62,6 +62,12 @@ The ISO date key is the calendar date assigned to the album, not its release dat
 Use stable direct artwork URLs. MusicBrainz/Cover Art Archive is preferred when suitable. Artwork can fail because of hotlinking, so if a source is unreliable find another stable source. The site has an artist-initial fallback and should not be redesigned just because an image fails.
 
 Spotify should normally be an exact official album embed URL. Verify the album ID. Preserve the existing Spotify player and external Spotify link behavior. Do not make the album artwork itself a Spotify link unless Dylan specifically asks.
+
+## Missing information
+If reliable research cannot establish a factual field such as release date, track count, or running time, do not guess. Use `—` when appropriate. For a pre-release album, unreleased information may legitimately remain `—` until it is known.
+
+## Date navigation
+Album dates use ISO keys in the form `YYYY-MM-DD`. The calendar and previous/next-day navigation depend on those keys. Keep the date key accurate and do not confuse it with the album's release date.
 
 ## Existing site layout/features — do not break
 - Calendar opens from the top-right Calendar button; it is not permanently displayed.
@@ -128,6 +134,12 @@ GitHub Pages is configured to deploy from the `main` branch, repository root. Th
 https://sgaslow-cloud.github.io/one-a-day-album-calendar/
 
 A GitHub commit is not the same thing as a successful deployment. Check the deployment workflow before reporting that a change is live.
+
+## Historical implementation notes
+- A missing comma in the `albums` object once caused the entire JavaScript file to fail and left the live page showing only the header. Always run `node --check script.js` after data edits.
+- Album artwork has an explicit fallback because external image hosts can fail.
+- The Spotify player required width/layout fixes; preserve its current right-column placement and sizing unless Dylan requests a redesign.
+- The metadata layout was intentionally changed to two rows: Genre/Best track, then Released/Tracks/Length. Do not collapse it into one row when adding data.
 
 ## Golden rule
 **Research carefully → change only what is necessary → validate → commit → verify deployment → report clearly.**
