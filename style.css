@@ -46,7 +46,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:5px 24px 25px
 
 /* Spotify listening area */
 #detail .listen-block{margin-top:24px;padding-top:18px;border-top:1px solid rgba(20,20,20,.12)}
-#detail .spotify-embed{display:block;width:100%;box-sizing:border-box;height:152px;border:0;border-radius:12px;background:#181818}
+#detail .listen-block{min-width:0;max-width:100%;overflow:hidden}#detail .spotify-embed{display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box;height:152px;border:0;border-radius:12px;background:#181818}
 #detail .spotify-link{display:inline-block;margin-top:8px;color:var(--ink);font-size:11px;font-weight:900;text-decoration:none}
 #detail .spotify-link:hover{text-decoration:underline}
 #detail .cover-link{display:block;color:inherit;text-decoration:none}
