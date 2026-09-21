@@ -1,7 +1,7 @@
-# Dylan's One a Day — AI Agent Handoff
+# Dylan's One-a-Day — AI Agent Handoff
 
 ## Purpose
-This repository powers **Dylan's One a Day**, a static GitHub Pages album-of-the-day site.
+This repository powers **Dylan's One-a-Day**, a static GitHub Pages album-of-the-day site.
 - Live site: https://sgaslow-cloud.github.io/one-a-day-album-calendar/
 - Repository: https://github.com/sgaslow-cloud/one-a-day-album-calendar/
 - Main files: `index.html`, `style.css`, `script.js`
@@ -104,7 +104,7 @@ Fetch the current file first. Change only the incorrect field(s), validate, comm
 If Dylan specifically requests a layout/design change, inspect the current HTML/CSS/JS first. Preserve all existing functionality and make the smallest change that accomplishes the request. Validate JavaScript after any JS change and verify deployment.
 
 ## Current project decisions
-- Site name: **Dylan's One a Day**
+- Site name: **Dylan's One-a-Day**
 - Tagline: **One album. One day.**
 - Calendar uses a modal date picker.
 - Previous/next arrows are beside Calendar.
