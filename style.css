@@ -57,3 +57,8 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:5px 24px 25px
 #detail .meta{grid-template-columns:1fr 1.2fr 1fr 1fr 1fr;gap:18px}
 @media(max-width:1050px){#detail .meta{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){#detail .meta{grid-template-columns:1fr 1fr}}
+
+/* Album metadata: Genre + Best track on row one; Released + Tracks + Length on row two */
+#detail .meta{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px}
+#detail .meta-row-two{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px 30px}
+@media(max-width:720px){#detail .meta-row-two{grid-template-columns:1fr 1fr}}
