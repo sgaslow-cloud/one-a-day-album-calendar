@@ -57,7 +57,7 @@ Add one object to the existing `albums` object. Example:
 },
 ```
 
-The ISO date key is the calendar date assigned to the album, not its release date. Preserve Dylan's requested spelling; otherwise use the artist's official spelling.
+The ISO date key is the calendar date assigned to the album, not its release date. Preserve Dylan's requested spelling; otherwise use the artist's official spelling. For September 21, 2026, Dylan's selected Best track is **Orbiter**, which is on the 21-track extended edition *The Great Divide: The Last Of The Bugs*; the site entry keeps the displayed title **The Great Divide** while using that extended-edition Spotify release.
 
 Use stable direct artwork URLs. MusicBrainz/Cover Art Archive is preferred when suitable. Artwork can fail because of hotlinking, so if a source is unreliable find another stable source. The site has an artist-initial fallback and should not be redesigned just because an image fails.
 
@@ -126,7 +126,8 @@ If Dylan specifically requests a layout/design change, inspect the current HTML/
 - September 18 — Counting Crows — *August and Everything After*
 - September 19 — Radiohead — *The Bends*
 - September 20 — Sade — *Love Deluxe*
-- Next expected day: September 21, 2026
+- September 21 — Noah Kahan — *The Great Divide*
+- Next expected day: September 22, 2026
 
 ## Deployment
 GitHub Pages is configured to deploy from the `main` branch, repository root. The live URL is:
