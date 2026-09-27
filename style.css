@@ -62,3 +62,8 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:5px 24px 25px
 #detail .meta{display:grid;grid-template-columns:1fr 1fr;gap:18px 30px}
 #detail .meta-row-two{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px 30px}
 @media(max-width:720px){#detail .meta-row-two{grid-template-columns:1fr 1fr}}
+
+/* Mobile calendar: keep all seven columns inside the modal */
+.calendar,.weekdays{grid-template-columns:repeat(7,minmax(0,1fr));min-width:0}
+.day{min-width:0;overflow:hidden}
+@media(max-width:480px){.calendar-panel{width:calc(100vw - 24px);max-width:none;padding:14px}.day{padding:5px 3px}.album-mini strong{font-size:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.weekdays span{padding:6px 1px;font-size:9px}}
