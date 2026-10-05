@@ -29,6 +29,16 @@ let view=new Date(new Date().getFullYear(),new Date().getMonth(),1);
 let imageCache={};
 
 function getCover(a){return a?.cover||null}
+function preloadCover(a){
+ const url=getCover(a);if(!url||imageCache[url])return;
+ const img=new Image();imageCache[url]=img;img.src=url;
+}
+function preloadAdjacent(){
+ const d=new Date(selected+"T12:00:00");
+ const prev=new Date(d);prev.setDate(d.getDate()-1);
+ const next=new Date(d);next.setDate(d.getDate()+1);
+ preloadCover(albums[key(prev)]);preloadCover(albums[key(next)]);
+}
 function openCalendar(){document.getElementById("calendarModal").hidden=false;document.getElementById("calendarModal").classList.add("open");document.getElementById("calendarModal").setAttribute("aria-hidden","false");renderCalendar()}
 function closeCalendar(){document.getElementById("calendarModal").classList.remove("open");document.getElementById("calendarModal").hidden=true;document.getElementById("calendarModal").setAttribute("aria-hidden","true")}
 function renderCalendar(){
@@ -47,7 +57,9 @@ async function renderToday(){
  const box=document.getElementById("detail"),a=albums[selected],d=new Date(selected+"T12:00:00"),isToday=selected===todayKey();
  if(!a){box.innerHTML=`<div class="empty"><div class="big">♫</div><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>No album yet</h2><p>This day is ready for its one-a-day album.</p></div>`;return}
  box.innerHTML=`<div class="cover-wrap"><div class="cover-fallback">${a.artist.slice(0,2).toUpperCase()}</div></div><div class="info"><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>${a.title}</h2><div class="artist">${a.artist}</div><div class="rating">★ <b>${a.rating}</b> / 10</div><div class="meta"><div><label>Genre</label><div>${a.genre}</div></div><div><label>Best track</label><div>${a.track}</div></div><div class="meta-row-two"><div><label>Released</label><div>${a.release}</div></div><div><label>Tracks</label><div>${a.tracks}</div></div><div><label>Length</label><div>${a.length}</div></div></div></div>${a.recommended&&a.recommended!=="—"?`<div class="recommend">Recommended by: <strong>${a.recommended}</strong></div>`:""}</div><aside class="singles"><div class="section-kicker">SINGLES</div><div class="single-list">${(a.singles||[]).map((x,n)=>`<div class="single"><span class="single-number">${String(n+1).padStart(2,"0")}</span><strong>${x}</strong></div>`).join("")}</div>${a.spotify?`<div class="listen-block"><div class="section-kicker">LISTEN</div><iframe class="spotify-embed" src="${a.spotify}" title="Listen to ${a.title} by ${a.artist} on Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><a class="spotify-link" href="${a.spotify.replace("/embed/","/")}" target="_blank" rel="noopener">Open in Spotify ↗</a></div>`:""}</aside>`;
- const url=getCover(a);if(url){const wrap=document.querySelector(".cover-wrap");if(wrap){const img=document.createElement("img");img.className="cover";img.alt=`${a.title} by ${a.artist} album cover`;img.src=url;img.onerror=()=>{img.remove();wrap.innerHTML=`<div class="cover-fallback">${a.artist.slice(0,2).toUpperCase()}</div>`;};wrap.replaceChildren(img)}}
+ const url=getCover(a);if(url){preloadCover(a);const wrap=document.querySelector(".cover-wrap");if(wrap){const img=document.createElement("img");img.className="cover";img.alt=`${a.title} by ${a.artist} album cover`;img.src=url;img.onerror=()=>{img.remove();wrap.innerHTML=`<div class="cover-fallback">${a.artist.slice(0,2).toUpperCase()}</div>`;};wrap.replaceChildren(img)}}
+}
+ preloadAdjacent();
 }
 function changeDay(offset){const d=new Date(selected+"T12:00:00");d.setDate(d.getDate()+offset);selected=key(d);renderToday();}
 document.getElementById("prevDay").onclick=()=>changeDay(-1);document.getElementById("nextDay").onclick=()=>changeDay(1);document.getElementById("calendarButton").onclick=openCalendar;
