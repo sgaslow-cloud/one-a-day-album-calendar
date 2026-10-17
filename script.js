@@ -1,8 +1,9 @@
 const albums={
-"2026-10-11":{title:"cross the line",artist:"pryme!",genre:"Hyperpop",rating:"8.1",track:"Cross the line",release:"October 2, 2026",tracks:"13",length:"42 min",recommended:"Gabe F",singles:["cross the line","don't matter","facetime","love me now"],ccover:"https://cdn.albumoftheyear.org/album/2046822-pryme-cross-the-line.jpg",spotify:"https://open.spotify.com/search/pryme%21%20cross%20the%20line",appleMusic:"https://music.apple.com/us/album/cross-the-line/6815500358"},
+"2026-10-13":{title:"Hatful of Hollow",artist:"The Smiths",genre:"Indie Pop",rating:"8.5",track:"Please Please Please Let Me Get What I Want",release:"November 1, 1984",tracks:"16",length:"56 min",recommended:"N/A",singles:["William, It Was Really Nothing","Heaven Knows I'm Miserable Now","How Soon Is Now?","Girl Afraid","Back to the Old House"],cover:"https://upload.wikimedia.org/wikipedia/en/7/7b/Hatful_of_Hollow.jpg",spotify:"https://open.spotify.com/embed/album/1j57Q5ntVi7crpibb0h4sv"},
+"2026-10-12":{title:"THE E.N.D. (THE ENERGY NEVER DIES)",artist:"Black Eyed Peas",genre:"Electro-Pop",rating:"7",track:"I gotta feeling",release:"June 3, 2009",tracks:"15",length:"1 hr 6 min",recommended:"Marin G",singles:["Boom Boom Pow","I Gotta Feeling","Meet Me Halfway","Imma Be","Rock That Body"],cover:"https://upload.wikimedia.org/wikipedia/en/1/1c/The_E.N.D._%28The_Energy_Never_Dies%29.jpg",spotify:"https://open.spotify.com/embed/album/36fdxiOzdlmsrHgGcfvqUJ"},
+"2026-10-11":{title:"cross the line",artist:"pryme!",genre:"Hyperpop",rating:"8.1",track:"Cross the line",release:"October 2, 2026",tracks:"13",length:"42 min",recommended:"Gabe F",singles:["cross the line","don't matter","facetime","love me now"],cover:"https://cdn.albumoftheyear.org/album/2046822-pryme-cross-the-line.jpg",spotify:"https://open.spotify.com/search/pryme%21%20cross%20the%20line",appleMusic:"https://music.apple.com/us/album/cross-the-line/6815500358"},
 "2026-10-10":{title:"Montgomery Ricky",artist:"Ricky Montgomery",genre:"Indie Pop",rating:"7.6",track:"Mr. Loverman",release:"April 1, 2016",tracks:"10",length:"36 min",recommended:"N/A",singles:["This December","Line Without a Hook","Mr. Loverman"],cover:"https://coverartarchive.org/release/c2453b4b-028e-4292-a1ff-262fceb86838/front-1200.jpg",spotify:"https://open.spotify.com/embed/album/25paSmOYSF03s81DCNqQn3"},
 "2026-10-09":{title:"Let's Get It On",artist:"Marvin Gaye",genre:"Soul",rating:"9",track:"If I Should Die Tonight",release:"August 28, 1973",tracks:"8",length:"32 min",recommended:"Ryan Gigs",singles:["Let's Get It On","Come Get to This","You Sure Love to Ball"],cover:"https://coverartarchive.org/release/d7e5ad8f-84c7-4f4c-bdf9-6e18fa404beb/front-1200.jpg",spotify:"https://open.spotify.com/embed/track/2TAAT4VKcMQgaQi1usGaA6"},
-
 "2026-10-08":{title:"A Moon Shaped Pool",artist:"Radiohead",genre:"Art Rock",rating:"8.5",track:"True Love Waits",release:"May 8, 2016",tracks:"11",length:"53 min",recommended:"N/A",singles:["Burn the Witch","Daydreaming"],cover:"https://coverartarchive.org/release/5f81ffe8-fd6c-409e-9441-6a978270d9fd/front-1200.jpg",spotify:"https://open.spotify.com/embed/album/6vuykQgDLUCiZ7YggIpLM9"},
 "2026-10-07":{title:"Sunny",artist:"Bobby Hebb",genre:"Soul Jazz",rating:"8.8",track:"Sunny",release:"1966",tracks:"12",length:"31 min",recommended:"Kalen",singles:["Sunny","A Satisfied Mind"],cover:"https://www.theturntablestore.com/cdn/shop/products/2337756-0247755664971886c233064971886c2331168762381464971886c2334.jpg?v=1701812147",spotify:"https://open.spotify.com/embed/track/4vju55Ag7apDL2CfotuE7Q"},
 "2026-10-06":{title:"The Life of a Showgirl",artist:"Taylor Swift",genre:"Pop",rating:"6.8",track:"The Fate of Ophelia",release:"October 3, 2025",tracks:"12",length:"41 min",recommended:"Ali M",singles:["The Fate of Ophelia","Opalite","Elizabeth Taylor"],cover:"https://cdn.abcotvs.com/dip/images/17909058_AP25265623228548.jpg",spotify:"https://open.spotify.com/embed/album/4a6NzYL1YHRUgx9e3YZI6I"},
@@ -30,51 +31,3 @@ const albums={
 "2026-09-18":{title:"August and Everything After",artist:"Counting Crows",genre:"Alt Rock",rating:"8.4",track:"Round Here",release:"September 14, 1993",tracks:"11",length:"51 min",recommended:"Dad",singles:["Mr. Jones","Round Here","Omaha","Rain King","A Murder of One"],cover:"https://cdn.prod.website-files.com/5fda4244c42e015b06d2fd8d/5fda462b0dcfee387c3ccf87_august-and-everything-after_album.avif",spotify:"https://open.spotify.com/embed/album/1dBjJZRfh3ZwZEyVwaTbV0"},
 "2026-09-19":{title:"The Bends",artist:"Radiohead",genre:"Alt Rock",rating:"8.4",track:"Fake Plastic Trees",release:"March 13, 1995",tracks:"12",length:"48 min",recommended:"—",singles:["My Iron Lung","High and Dry","Fake Plastic Trees","Just","Street Spirit (Fade Out)"],cover:"https://coverartarchive.org/release/b2002626-ea4f-47d4-972d-1aa229335321/front-1200.jpg",spotify:"https://open.spotify.com/embed/album/35UJLpClj5EDrhpNIi4DFg"},
 };
-const pad=n=>String(n).padStart(2,"0");
-const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-const todayKey=()=>key(new Date());
-let selected=todayKey();
-let view=new Date(new Date().getFullYear(),new Date().getMonth(),1);
-let imageCache={};
-
-function getCover(a){return a?.cover||null}
-function preloadCover(a){
- const url=getCover(a);if(!url||imageCache[url])return;
- const img=new Image();imageCache[url]=img;img.src=url;
-}
-function preloadAdjacent(){
- const d=new Date(selected+"T12:00:00");
- const prev=new Date(d);prev.setDate(d.getDate()-1);
- const next=new Date(d);next.setDate(d.getDate()+1);
- preloadCover(albums[key(prev)]);preloadCover(albums[key(next)]);
-}
-function openCalendar(){document.getElementById("calendarModal").hidden=false;document.getElementById("calendarModal").classList.add("open");document.getElementById("calendarModal").setAttribute("aria-hidden","false");renderCalendar()}
-function closeCalendar(){document.getElementById("calendarModal").classList.remove("open");document.getElementById("calendarModal").hidden=true;document.getElementById("calendarModal").setAttribute("aria-hidden","true")}
-function renderCalendar(){
- document.getElementById("monthLabel").textContent=view.toLocaleString("en-US",{month:"long",year:"numeric"});
- const cal=document.getElementById("calendar");cal.innerHTML="";
- const first=new Date(view.getFullYear(),view.getMonth(),1),start=new Date(first);start.setDate(1-first.getDay());
- for(let i=0;i<42;i++){
-  const d=new Date(start);d.setDate(start.getDate()+i);const k=key(d),a=albums[k],el=document.createElement("button");
-  el.className="day"+(d.getMonth()!==view.getMonth()?" other":"")+(a?" has-album":"")+(k===selected?" selected":"");
-  el.innerHTML=`<div class="date-num">${d.getDate()}</div>${a?`<div class="album-mini"><strong>${a.title}</strong><span>${a.artist}</span></div>`:""}`;
-  el.addEventListener("click",()=>{selected=k;renderToday();closeCalendar()});
-  cal.appendChild(el);
- }
-}
-async function renderToday(){
- const box=document.getElementById("detail"),a=albums[selected],d=new Date(selected+"T12:00:00"),isToday=selected===todayKey();
- if(!a){box.innerHTML=`<div class="empty"><div class="big">♫</div><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>No album yet</h2><p>This day is ready for its one-a-day album.</p></div>`;return}
- box.innerHTML=`<div class="cover-wrap"><div class="cover-fallback">${a.artist.slice(0,2).toUpperCase()}</div></div><div class="info"><div class="date">${d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}${isToday?'<span class="today-label">TODAY</span>':""}</div><h2>${a.title}</h2><div class="artist">${a.artist}</div><div class="rating">★ <b>${a.rating}</b> / 10</div><div class="meta"><div><label>Genre</label><div>${a.genre}</div></div><div><label>Best track</label><div>${a.track}</div></div><div class="meta-row-two"><div><label>Released</label><div>${a.release}</div></div><div><label>Tracks</label><div>${a.tracks}</div></div><div><label>Length</label><div>${a.length}</div></div></div></div>${a.recommended&&a.recommended!=="—"?`<div class="recommend">Recommended by: <strong>${a.recommended}</strong></div>`:""}</div><aside class="singles"><div class="section-kicker">SINGLES</div><div class="single-list">${(a.singles||[]).map((x,n)=>`<div class="single"><span class="single-number">${String(n+1).padStart(2,"0")}</span><strong>${x}</strong></div>`).join("")}</div>${a.spotify?`<div class="listen-block"><div class="section-kicker">LISTEN</div><iframe class="spotify-embed" src="${a.spotify}" title="Listen to ${a.title} by ${a.artist} on Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe><a class="spotify-link" href="${a.spotify.replace("/embed/","/")}" target="_blank" rel="noopener">Open in Spotify ↗</a></div>`:""}</aside>`;
- const url=getCover(a);if(url){preloadCover(a);const wrap=document.querySelector(".cover-wrap");if(wrap){const img=document.createElement("img");img.className="cover";img.alt=`${a.title} by ${a.artist} album cover`;img.src=url;img.onerror=()=>{img.remove();wrap.innerHTML=`<div class="cover-fallback">${a.artist.slice(0,2).toUpperCase()}</div>`;};img.onload=()=>{setTimeout(preloadAdjacent,0)};wrap.replaceChildren(img)}}
- if(!url){setTimeout(preloadAdjacent,0)}
-}
-function changeDay(offset){const d=new Date(selected+"T12:00:00");d.setDate(d.getDate()+offset);selected=key(d);renderToday();}
-document.getElementById("prevDay").onclick=()=>changeDay(-1);document.getElementById("nextDay").onclick=()=>changeDay(1);document.getElementById("calendarButton").onclick=openCalendar;
-document.getElementById("closeCalendar").onclick=closeCalendar;
-document.getElementById("modalBackdrop").onclick=closeCalendar;
-document.getElementById("prevMonth").onclick=()=>{view.setMonth(view.getMonth()-1);renderCalendar()};
-document.getElementById("nextMonth").onclick=()=>{view.setMonth(view.getMonth()+1);renderCalendar()};
-document.getElementById("todayButton").onclick=()=>{selected=todayKey();view=new Date(new Date().getFullYear(),new Date().getMonth(),1);renderToday();closeCalendar()};
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCalendar()});
-renderToday();
