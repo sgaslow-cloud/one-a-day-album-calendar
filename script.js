@@ -34,8 +34,11 @@ const albums={
 const pad=n=>String(n).padStart(2,"0");
 const key=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const todayKey=()=>key(new Date());
-let selected=todayKey();
-let view=new Date(new Date().getFullYear(),new Date().getMonth(),1);
+const requestedDate=new URLSearchParams(window.location.search).get("date");
+const validRequestedDate=requestedDate&&/^\\d{4}-\\d{2}-\\d{2}$/.test(requestedDate)&&!Number.isNaN(new Date(requestedDate+"T12:00:00").getTime())?requestedDate:null;
+let selected=validRequestedDate||todayKey();
+let view=new Date(selected+"T12:00:00");
+view.setDate(1);
 let imageCache={};
 function getCover(a){return a?.cover||null}
 function preloadCover(a){const url=getCover(a);if(!url||imageCache[url])return;const img=new Image();imageCache[url]=img;img.src=url}
