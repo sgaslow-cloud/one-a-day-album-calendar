@@ -1,11 +1,11 @@
-// Targeted artwork fixes for the Oct. 11–13 entries.
+// Targeted artwork and Spotify fix for the Oct. 11 entry.
 const verifiedArtworkFixes={
   "2026-10-13":"https://cdn.awsli.com.br/2500x2500/330/330862/produto/325971037/3d3b72b3-3ce7-4a22-859c-5103a3389db9-mua0wzsbdy.jpeg",
   "2026-10-12":"https://coverartarchive.org/release/287aeb61-87e4-4806-ad90-cd3ae89f28a5/34427730906-1200.jpg",
-  "2026-10-11":"https://cdn2.albumoftheyear.org/375x0/album/2046822-cross-the-line_193302.jpg"
+  "2026-10-11":"https://images.weserv.nl/?url=cdn2.albumoftheyear.org/375x0/album/2046822-cross-the-line_193302.jpg"
 };
 Object.keys(verifiedArtworkFixes).forEach(k=>{if(albums[k])albums[k].cover=verifiedArtworkFixes[k]});
-// The pryme! album is confirmed on Spotify, but its album URI is not exposed by the indexed sources.
-// Keep the verified Spotify search destination rather than inventing an album ID.
-if(albums["2026-10-11"]){albums["2026-10-11"].spotify="https://open.spotify.com/search/pryme%21%20cross%20the%20line"}
+// Use a real Spotify artist embed rather than a non-embeddable Spotify search URL.
+// The artist ID is verified from Spotify-linked artist data.
+if(albums["2026-10-11"]){albums["2026-10-11"].spotify="https://open.spotify.com/embed/artist/4JwAOjo9XLAY0cloU0TGre"}
 renderToday();
